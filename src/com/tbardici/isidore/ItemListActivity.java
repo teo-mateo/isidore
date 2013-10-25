@@ -1,6 +1,12 @@
 package com.tbardici.isidore;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import com.tbardici.isidore.droplet.MyDroplets;
+
 import android.content.Intent;
+import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 
@@ -46,6 +52,18 @@ public class ItemListActivity extends FragmentActivity implements
 					R.id.item_list)).setActivateOnItemClick(true);
 		}
 
+    	String url;
+    	JSONObject response;
+        //get all the sizes and initialize our DropletType collection
+        url = DOApi.getUrl(DOApi.DROPLETS_GET_ALL,  null);
+		response = DOApi.callApi(url);
+		try {
+			MyDroplets.initialize(response);
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		// TODO: If exposing deep links into your app, handle intents here.
 	}
 

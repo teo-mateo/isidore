@@ -37,6 +37,15 @@ public class DropletType {
 		}
 	}
 	
+	public static DropletType getWithId(int id){
+		for (int i = 0; i < DropletType.dropletTypes.size(); i++){
+			if (DropletType.dropletTypes.get(i).id == id){
+				return DropletType.dropletTypes.get(i);
+			}
+		}
+		return null;
+	}
+	
 	private static ArrayList<DropletType> dropletTypes = new ArrayList<DropletType>();
 	private static String rawJson;
 	

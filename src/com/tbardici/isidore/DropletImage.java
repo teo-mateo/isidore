@@ -11,7 +11,7 @@ public class DropletImage {
 	public final int id;
 	public final String name;
 	public final String distribution;
-	public final boolean is_public;
+	public final boolean is_public; 
 	
 	private static ArrayList<DropletImage> images = new ArrayList<DropletImage>();
 	private static String rawJson;
@@ -33,6 +33,15 @@ public class DropletImage {
 				DropletImage.images.add(new DropletImage(array.getJSONObject(i)));
 			}
 		}
+	}
+	
+	public static DropletImage getWithId(int id){
+		for (int i = 0; i < DropletImage.images.size(); i++){
+			if (DropletImage.images.get(i).id == id){
+				return DropletImage.images.get(i);
+			}
+		}
+		return null;
 	}
 	
 	public static ArrayList<DropletImage> getImages(){

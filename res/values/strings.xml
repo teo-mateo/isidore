@@ -14,6 +14,7 @@
     <string name="region">Region</string>
     <string name="image">Image</string>
     <string name="create_droplet">Create Droplet</string>
+    <string name="droplet_list">Droplet List</string>
     
     <string name="yes">Yes</string>
     <string name="no">No</string>

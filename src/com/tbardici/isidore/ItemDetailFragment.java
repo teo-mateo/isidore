@@ -5,9 +5,11 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.TextView;
 
-import com.tbardici.isidore.dummy.DummyContent;
+import com.tbardici.isidore.droplet.MyDroplets;
 
 /**
  * A fragment representing a single Item detail screen. This fragment is either
@@ -24,7 +26,7 @@ public class ItemDetailFragment extends Fragment {
 	/**
 	 * The dummy content this fragment is presenting.
 	 */
-	private DummyContent.DummyItem mItem;
+	private MyDroplets.Droplet mItem;
 
 	/**
 	 * Mandatory empty constructor for the fragment manager to instantiate the
@@ -41,7 +43,7 @@ public class ItemDetailFragment extends Fragment {
 			// Load the dummy content specified by the fragment
 			// arguments. In a real-world scenario, use a Loader
 			// to load content from a content provider.
-			mItem = DummyContent.ITEM_MAP.get(getArguments().getString(
+			mItem = MyDroplets.ITEM_MAP.get(getArguments().getString(
 					ARG_ITEM_ID));
 		}
 	}
@@ -54,8 +56,16 @@ public class ItemDetailFragment extends Fragment {
 
 		// Show the dummy content as text in a TextView.
 		if (mItem != null) {
-			((TextView) rootView.findViewById(R.id.item_detail))
-					.setText(mItem.content);
+			((TextView) rootView.findViewById(R.id.item_detail)).setText(mItem.name);
+			((EditText) rootView.findViewById(R.id.item_size)).setText(mItem.size.toString());
+			((EditText) rootView.findViewById(R.id.item_region)).setText(mItem.region.toString());
+			((EditText) rootView.findViewById(R.id.item_image)).setText(mItem.image.name);
+			((CheckBox) rootView.findViewById(R.id.item_backup_active)).setChecked(mItem.backups_active);
+			((TextView) rootView.findViewById(R.id.item_ip)).setText(mItem.ip_address);
+			((TextView) rootView.findViewById(R.id.item_private_ip)).setText(mItem.private_ip_address);
+			((CheckBox) rootView.findViewById(R.id.item_locked)).setChecked(mItem.locked);
+			((TextView) rootView.findViewById(R.id.item_status)).setText(mItem.status);
+			
 		}
 
 		return rootView;

@@ -87,6 +87,10 @@ public class MainActivity extends Activity {
 	    		Intent intent = new Intent(this, CreateDropletActivity.class);
 	    		startActivity(intent);
 	    		return true;
+    		case R.id.action_droplet_list:
+    			Intent intent1 = new Intent(this, ItemListActivity.class);
+    			startActivity(intent1);
+    			return true;
     		default:
     			return super.onOptionsItemSelected(item);
     	}

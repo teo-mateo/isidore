@@ -31,6 +31,15 @@ public class Region {
 		}
 	}
 	
+	public static Region getWithId(int id){
+		for (int i = 0; i < Region.regions.size(); i++){
+			if (Region.regions.get(i).id == id){
+				return Region.regions.get(i);
+			}
+		}
+		return null;
+	}
+	
 	public static ArrayList<Region> getRegions(){
 		return Region.regions;
 	}
