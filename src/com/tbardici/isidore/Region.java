@@ -6,6 +6,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+/**
+ * 
+ * @author Teo
+ *
+ */
 public class Region {
 	public final int id;
 	public final String slug;

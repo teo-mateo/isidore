@@ -1,16 +1,23 @@
 package com.tbardici.isidore;
 
-import org.json.JSONException;
-import org.json.JSONObject;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Observable;
+import java.util.Observer;
 
 import com.tbardici.isidore.droplet.MyDroplets;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
-import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
+import android.view.Menu;
+import android.view.View;
 
 /**
+ * @author Teo
+ * 
  * An activity representing a list of Items. This activity has different
  * presentations for handset and tablet-size devices. On handsets, the activity
  * presents a list of items, which when touched, lead to a
@@ -26,13 +33,15 @@ import android.support.v4.app.FragmentActivity;
  * interface to listen for item selections.
  */
 public class ItemListActivity extends FragmentActivity implements
-		ItemListFragment.Callbacks {
+		ItemListFragment.Callbacks, Observer {
 
 	/**
 	 * Whether or not the activity is in two-pane mode, i.e. running on a tablet
 	 * device.
 	 */
 	private boolean mTwoPane;
+	private String mLastSelectedDroplet;
+	private ProgressDialog mProgressDlg;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -51,20 +60,13 @@ public class ItemListActivity extends FragmentActivity implements
 			((ItemListFragment) getSupportFragmentManager().findFragmentById(
 					R.id.item_list)).setActivateOnItemClick(true);
 		}
-
-    	String url;
-    	JSONObject response;
-        //get all the sizes and initialize our DropletType collection
-        url = DOApi.getUrl(DOApi.DROPLETS_GET_ALL,  null);
-		response = DOApi.callApi(url);
-		try {
-			MyDroplets.initialize(response);
-		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		// TODO: If exposing deep links into your app, handle intents here.
+    	// TODO: If exposing deep links into your app, handle intents here.
+	}
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		getMenuInflater().inflate(R.menu.droplet_menu, menu);
+		return true;
 	}
 
 	/**
@@ -73,6 +75,7 @@ public class ItemListActivity extends FragmentActivity implements
 	 */
 	@Override
 	public void onItemSelected(String id) {
+		mLastSelectedDroplet = id;
 		if (mTwoPane) {
 			// In two-pane mode, show the detail view in this activity by
 			// adding or replacing the detail fragment using a
@@ -91,5 +94,41 @@ public class ItemListActivity extends FragmentActivity implements
 			detailIntent.putExtra(ItemDetailFragment.ARG_ITEM_ID, id);
 			startActivity(detailIntent);
 		}
+	}
+	
+	public void rebootDroplet(View view){
+		MyDroplets.Droplet droplet = MyDroplets.ITEM_MAP.get(mLastSelectedDroplet);
+		Map<String, String> args = new HashMap<String, String>();
+		args.put("droplet_id", Integer.toString(droplet.id));
+		LongDurationCall ldc = new LongDurationCall(DOApi.API.DROPLET_REBOOT, args);
+		ldc.addObserver(this);
+		ldc.run();
+		Log.i("isidore", "something.");
+		
+		mProgressDlg = new ProgressDialog(this);
+		mProgressDlg.setTitle("Rebooting machine: " + mLastSelectedDroplet);
+		mProgressDlg.setMessage("Percent done: 0");
+		mProgressDlg.show();
+	}
+
+	@Override
+	public void update(final Observable observable, final Object data) {
+		if (data.toString().equals("100")){
+			this.runOnUiThread(new Runnable() {
+				public void run() {
+					mProgressDlg.dismiss();
+					observable.deleteObservers();
+				}
+			});
+			
+		} else {
+			this.runOnUiThread(new Runnable() {
+				public void run() {
+					mProgressDlg.setMessage(data.toString());
+				}
+			});
+			
+		}
+		
 	}
 }

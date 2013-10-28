@@ -1,7 +1,11 @@
 package com.tbardici.isidore;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import org.json.JSONObject;
+
 import android.os.Bundle;
-import android.app.Activity;
 import android.support.v4.app.DialogFragment;
 import android.util.Log;
 import android.view.Menu;
@@ -14,6 +18,11 @@ import android.widget.Toast;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.NavUtils;
 
+/**
+ * 
+ * @author Teo
+ *
+ */
 public class CreateDropletActivity extends FragmentActivity implements DCConfirmDialogFragment.NoticeDialogListener{
 
 	private Bundle mDataBundle = new Bundle();
@@ -121,6 +130,26 @@ public class CreateDropletActivity extends FragmentActivity implements DCConfirm
 	public void onDialogPositiveClick(DialogFragment dialog) {
 		Log.i("i", "attempting to create the droplet.");
 		Toast.makeText(getApplicationContext(), "attempting to create the droplet", Toast.LENGTH_LONG).show();
+		
+		//collect from the view
+		EditText txtName = (EditText) findViewById(R.id.dropletName);
+		String hostname = txtName.getText().toString().trim();
+		Spinner spinSize = (Spinner) findViewById(R.id.spinSize);
+		DropletType type = (DropletType) spinSize.getSelectedItem();
+		Spinner spinRegion = (Spinner) findViewById(R.id.spinRegion);
+		Region region = (Region) spinRegion.getSelectedItem();
+		Spinner spinImage = (Spinner) findViewById(R.id.spinImage);
+		DropletImage image = (DropletImage) spinImage.getSelectedItem();
+		
+		Map<String, String> args= new HashMap<String, String>();
+		args.put("droplet_name", hostname);
+		args.put("size_id", Integer.toString(type.id));
+		args.put("image_id", Integer.toString(image.id));
+		args.put("region_id", Integer.toString(region.id));
+		
+		String url = DOApi.getUrl(DOApi.API.DROPLETS_NEW, args);
+		JSONObject ret = DOApi.callApiAsync(url);
+		//JSONObject newDroplet = ret.getJSONObject("droplet");
 	}
 
 	@Override

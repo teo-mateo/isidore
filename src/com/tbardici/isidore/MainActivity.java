@@ -1,13 +1,15 @@
 package com.tbardici.isidore;
 
+import java.util.concurrent.ExecutionException;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,6 +17,11 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
 
+/**
+ * 
+ * @author Teo
+ *
+ */
 public class MainActivity extends Activity {
 
     @Override
@@ -29,14 +36,14 @@ public class MainActivity extends Activity {
 			e.printStackTrace();
 		}
         
-        Button button = (Button)findViewById(R.id.button1);
+        Button button = (Button)findViewById(R.id.droplet_reboot);
         button.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
 				String url = DOApi.getUrl("http://www.google.ro", null);
 				
-				JSONObject response = DOApi.callApi(url);
+				JSONObject response = DOApi.callApiAsync(url);
 				TextView txt = (TextView)findViewById(R.id.textView1);
 				txt.setText(response.toString());
 				
@@ -65,8 +72,8 @@ public class MainActivity extends Activity {
     	JSONObject response;
     	
 		//get all the regions and initialize our Region collection
-		url = DOApi.getUrl(DOApi.REGIONS_GET_ALL, null);
-    	response = DOApi.callApi(url);
+		url = DOApi.getUrl(DOApi.API.REGIONS_GET_ALL, null);
+    	response = DOApi.callApiAsync(url);
     	Region.initialize(response);
     	
 		TextView txt = (TextView)findViewById(R.id.textView1);
@@ -88,9 +95,13 @@ public class MainActivity extends Activity {
 	    		startActivity(intent);
 	    		return true;
     		case R.id.action_droplet_list:
-    			Intent intent1 = new Intent(this, ItemListActivity.class);
-    			startActivity(intent1);
+    			LoadDropletsAsync loader = new LoadDropletsAsync(this);
+    			loader.execute();
     			return true;
+    		case R.id.show_drawables:
+	    		intent = new Intent(this, DrawablePreviewActivity.class);
+	    		startActivity(intent);
+	    		return true;
     		default:
     			return super.onOptionsItemSelected(item);
     	}
@@ -107,8 +118,8 @@ public class MainActivity extends Activity {
     	String url;
     	JSONObject response;
     	
-    	url = DOApi.getUrl(DOApi.IMAGES_GET_ALL, null);
-    	response = DOApi.callApi(url);
+    	url = DOApi.getUrl(DOApi.API.IMAGES_GET_ALL, null);
+    	response = DOApi.callApiAsync(url);
     	try {
 			DropletImage.initialize(response);
 		} catch (JSONException e) {
@@ -134,8 +145,8 @@ public class MainActivity extends Activity {
         	String url;
         	JSONObject response;
 	        //get all the sizes and initialize our DropletType collection
-	        url = DOApi.getUrl(DOApi.SIZES_GET_ALL,  null);
-			response = DOApi.callApi(url);
+	        url = DOApi.getUrl(DOApi.API.SIZES_GET_ALL,  null);
+			response = DOApi.callApiAsync(url);
 			DropletType.initialize(response);
 			Editor editor = settings.edit();
 			editor.putString("size", response.toString());
@@ -148,8 +159,8 @@ public class MainActivity extends Activity {
         	String url;
         	JSONObject response;
 	        //get all the sizes and initialize our DropletType collection
-	        url = DOApi.getUrl(DOApi.REGIONS_GET_ALL,  null);
-			response = DOApi.callApi(url);
+	        url = DOApi.getUrl(DOApi.API.REGIONS_GET_ALL,  null);
+			response = DOApi.callApiAsync(url);
 			Region.initialize(response);
 			Editor editor = settings.edit();
 			editor.putString("region", response.toString());
@@ -162,8 +173,8 @@ public class MainActivity extends Activity {
         	String url;
         	JSONObject response;
 	        //get all the sizes and initialize our DropletType collection
-	        url = DOApi.getUrl(DOApi.IMAGES_GET_ALL,  null);
-			response = DOApi.callApi(url);
+	        url = DOApi.getUrl(DOApi.API.IMAGES_GET_ALL,  null);
+			response = DOApi.callApiAsync(url);
 			DropletImage.initialize(response);
 			Editor editor = settings.edit();
 			editor.putString("image", response.toString());
@@ -171,7 +182,7 @@ public class MainActivity extends Activity {
     	}
     }
     
-    public void masterDetailShow(View view){
+    public void masterDetailShow(View view) throws InterruptedException, ExecutionException{
     	Intent intent = new Intent(this, ItemListActivity.class);
     	startActivity(intent);
     }

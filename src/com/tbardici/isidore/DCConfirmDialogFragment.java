@@ -7,14 +7,14 @@ import android.support.v4.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
 
+/**
+ * 
+ * @author Teo
+ *
+ */
 public class DCConfirmDialogFragment extends DialogFragment {
-	
-	private String type;
-	private String region;
-	private String image;
-	
+
 	private String default_message = "Are you sure you want to create this droplet?";
-	
 	
     /* The activity that creates an instance of this dialog fragment must
      * implement this interface in order to receive event callbacks.
@@ -31,9 +31,6 @@ public class DCConfirmDialogFragment extends DialogFragment {
 	public Dialog onCreateDialog(Bundle savedInstanceState) {
 		
 		Bundle args = this.getArguments();
-		this.type = args.getString("type");
-		this.region = args.getString("region");
-		this.image = args.getString("image");
 		
 		default_message += "\nHostname: " + args.getString("hostname");
 		default_message += "\nSize: " + args.getString("type");
@@ -64,7 +61,6 @@ public class DCConfirmDialogFragment extends DialogFragment {
             throw new ClassCastException(activity.toString()
                     + " must implement NoticeDialogListener");
         }
-		
 	}
 	
 	private DialogInterface.OnClickListener yesClick = new DialogInterface.OnClickListener() {

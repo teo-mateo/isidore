@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+    <item android:id="@+id/mnu_droplet_reboot" 
+        android:orderInCategory="1"
+        android:title="Reboot"
+        android:icon="@android:drawable/ic_menu_rotate">
+    </item>
+    <item android:id="@+id/mnu_droplet_power_off" 
+        android:title="Power Off" 
+        android:orderInCategory="2"
+        android:icon="@android:drawable/ic_lock_power_off"></item>
+    <item android:id="@+id/mnu_droplet_power_on" 
+        android:title="Power On" 
+        android:orderInCategory="3"
+        android:icon="@android:drawable/ic_lock_power_off"></item>
+    <item android:id="@+id/mnu_droplet_pass_reset" 
+        android:title="Reset Password" 
+        android:orderInCategory="4"
+        android:icon="@android:drawable/ic_lock_power_off"></item>
+    <item android:id="@+id/mnu_droplet_rename" 
+        android:title="Rename"
+        android:icon="@android:drawable/ic_menu_edit"></item>
+    <item android:id="@+id/mnu_droplet_destroy" 
+        android:title="Destroy"
+        android:icon="@android:drawable/ic_menu_delete"></item>
+    
+
+</menu>

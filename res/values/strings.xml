@@ -8,17 +8,14 @@
     <string name="title_item_list">Items</string>
     <string name="title_item_detail">Item Detail</string>
     <string name="title_activity_create_droplet">Create Droplet</string>
-    
     <string name="hostname">Hostname</string>
     <string name="size">Size</string>
     <string name="region">Region</string>
     <string name="image">Image</string>
     <string name="create_droplet">Create Droplet</string>
     <string name="droplet_list">Droplet List</string>
-    
     <string name="yes">Yes</string>
     <string name="no">No</string>
-    
-    
+    <string name="title_activity_gimme_icons">GimmeIcons</string>
 
 </resources>

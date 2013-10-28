@@ -14,6 +14,9 @@ import com.tbardici.isidore.DropletType;
 import com.tbardici.isidore.Region;
 
 /**
+ * 
+ * @author Teo
+ * 
  * Helper class for providing sample content for user interfaces created by
  * Android template wizards.
  * <p>
@@ -22,12 +25,12 @@ import com.tbardici.isidore.Region;
 public class MyDroplets {
 
 	/**
-	 * An array of sample (dummy) items.
+	 * the list of droplets.
 	 */
 	public static List<Droplet> ITEMS = new ArrayList<Droplet>();
 
 	/**
-	 * A map of sample (dummy) items, by ID.
+	 * map of droplets, by name.
 	 */
 	public static Map<String, Droplet> ITEM_MAP = new HashMap<String, Droplet>();
 
@@ -40,22 +43,15 @@ public class MyDroplets {
 		}
 	}
 	
-	/*
-	static {
-		// Add 3 sample items.
-		addItem(new DummyItem("1", "Item 1"));
-		addItem(new DummyItem("2", "Item 2"));
-		addItem(new DummyItem("3", "Item 3"));1
-	}
-	*/
-
 	private static void addItem(Droplet item) {
 		ITEMS.add(item);
 		ITEM_MAP.put(item.name, item);
 	}
 
 	/**
-	 * A dummy item representing a piece of content.
+	 * 
+	 * @author Teo
+	 *
 	 */
 	public static class Droplet {
 		public final int id;

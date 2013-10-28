@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:layout_margin="5dp">
+    <ImageView
+        android:layout_margin="5dp"
+        android:id="@+id/row_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@android:drawable/ic_menu_gallery"/>
+    <TextView
+        android:id="@+id/row_droplet_name"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:padding="5dp"
+        android:text="Droplet name"
+        android:gravity="center_vertical"/>
+</LinearLayout>

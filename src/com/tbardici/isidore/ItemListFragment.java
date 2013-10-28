@@ -4,12 +4,13 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.tbardici.isidore.droplet.MyDroplets;
 
 /**
+ * @author Teo
+ * 
  * A list fragment representing a list of Items. This fragment also supports
  * tablet devices by allowing list items to be given an 'activated' state upon
  * selection. This helps indicate which item is currently being viewed in a
@@ -70,10 +71,17 @@ public class ItemListFragment extends ListFragment {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
+		DropletListAdapter adapter = new DropletListAdapter(
+				getActivity(), 
+				android.R.layout.simple_list_item_1,
+				MyDroplets.ITEMS);
+		
+		setListAdapter(adapter);
+		
 		// TODO: replace with a real list adapter.
-		setListAdapter(new ArrayAdapter<MyDroplets.Droplet>(getActivity(),
-				android.R.layout.simple_list_item_activated_1,
-				android.R.id.text1, MyDroplets.ITEMS));
+		//setListAdapter(new ArrayAdapter<MyDroplets.Droplet>(getActivity(),
+		//		android.R.layout.simple_list_item_activated_1,
+		//		android.R.id.text1, MyDroplets.ITEMS));
 	}
 
 	@Override

@@ -7,6 +7,8 @@ import android.support.v4.app.NavUtils;
 import android.view.MenuItem;
 
 /**
+ * @author Teo
+ * 
  * An activity representing a single Item detail screen. This activity is only
  * used on handset devices. On tablet-size devices, item details are presented
  * side-by-side with a list of items in a {@link ItemListActivity}.

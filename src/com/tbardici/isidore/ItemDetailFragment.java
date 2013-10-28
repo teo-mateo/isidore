@@ -1,7 +1,9 @@
 package com.tbardici.isidore;
 
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,8 +12,11 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.tbardici.isidore.droplet.MyDroplets;
+import android.util.Log;
 
 /**
+ * @author Teo
+ * 
  * A fragment representing a single Item detail screen. This fragment is either
  * contained in a {@link ItemListActivity} in two-pane mode (on tablets) or a
  * {@link ItemDetailActivity} on handsets.
@@ -53,10 +58,15 @@ public class ItemDetailFragment extends Fragment {
 			Bundle savedInstanceState) {
 		View rootView = inflater.inflate(R.layout.fragment_item_detail,
 				container, false);
-
+		
+		Typeface font = Typeface.createFromAsset(
+				this.getActivity().getAssets(), 
+			    "Roboto-Regular.ttf");
+		
 		// Show the dummy content as text in a TextView.
 		if (mItem != null) {
 			((TextView) rootView.findViewById(R.id.item_detail)).setText(mItem.name);
+			((TextView) rootView.findViewById(R.id.item_detail)).setTypeface(font);
 			((EditText) rootView.findViewById(R.id.item_size)).setText(mItem.size.toString());
 			((EditText) rootView.findViewById(R.id.item_region)).setText(mItem.region.toString());
 			((EditText) rootView.findViewById(R.id.item_image)).setText(mItem.image.name);
@@ -70,4 +80,6 @@ public class ItemDetailFragment extends Fragment {
 
 		return rootView;
 	}
+	
+
 }

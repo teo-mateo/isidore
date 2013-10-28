@@ -44,6 +44,10 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.tbardici.isidore.MainActivity" />
         </activity>
+        <activity
+            android:name="com.tbardici.isidore.DrawablePreviewActivity"
+            android:label="@string/title_activity_gimme_icons" >
+        </activity>
     </application>
 
 </manifest>

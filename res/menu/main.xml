@@ -20,4 +20,11 @@
         android:showAsAction="always"
         android:icon="@android:drawable/ic_menu_agenda" ></item>
 
+        <item android:id="@+id/show_drawables" 
+        android:orderInCategory="98" 
+        android:title="@string/droplet_list" 
+        android:visible="true" 
+        android:enabled="true" 
+        android:showAsAction="always"
+        android:icon="@android:drawable/ic_menu_agenda" ></item>
 </menu>
